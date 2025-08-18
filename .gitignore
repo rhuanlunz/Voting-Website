@@ -1,0 +1,6 @@
+*cache*
+
+src/static/css/*
+src/database.db
+src/tmp/*
+.venv

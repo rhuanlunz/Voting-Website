@@ -1,0 +1,454 @@
+$background-size: 30px 30px;
+
+@use 'colors';
+@use 'font';
+
+body {
+  font-family: Giphurs, sans-serif;
+  color: colors.$on_surface;
+  background: colors.$surface;
+  display: flex;
+  flex-flow: column;
+
+  padding: 0px;
+  margin: 0px;
+}
+
+::selection {
+  color: colors.$on_secondary;
+  background-color: colors.$secondary;
+}
+
+.error {
+  color: colors.$on_error;
+  background: colors.$error;
+  padding: 5px;
+  margin: 20px auto;
+  margin-bottom: 0px;
+  border-radius: 40px;
+  box-shadow: 0px 5px 10px 3px rgba(black, .3);
+
+  position: fixed;
+  bottom: -10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+
+  min-width: 10px;
+  width: max-content;
+  max-width: 90vw;
+  box-sizing: border-box;
+
+  animation: popin 1s forwards;
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &::selection {
+    color: colors.$on_error_container;
+    background: colors.$error_container;
+  }
+}
+
+.popup {
+  color: colors.$tertiary;
+  background: colors.$on_tertiary;
+  padding: 5px;
+  margin: 20px auto;
+  margin-bottom: 0px;
+  border-radius: 40px;
+  box-shadow: 0px 5px 10px 3px rgba(black, .3);
+
+  position: fixed;
+  bottom: -10vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+
+  min-width: 10px;
+  width: max-content;
+  max-width: 90vw;
+  box-sizing: border-box;
+
+  animation: popin 1s forwards;
+  text-align: center;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &::selection {
+    background: #386568;
+  }
+}
+
+.popout {
+  animation: popout 1s forwards;
+}
+
+.background {
+  background: black;
+  position: relative;
+  overflow: clip;
+
+  height: 350px;
+
+  .gradient {
+    background: linear-gradient(transparent, colors.$surface 100%);
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  .squares {
+    background-image: linear-gradient(#285020 1px,
+        transparent 1px),
+      linear-gradient(to right,
+        #285020 1px,
+        transparent 1px);
+    background-color: colors.$surface_container_lowest;
+    background-size: $background-size;
+    will-change: background-positon;
+    animation: squares-move .5s infinite linear reverse;
+
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.container {
+  background: #1D211B;
+  border-radius: 40px;
+  padding: 20px;
+  margin: 20px auto;
+  margin-bottom: 30px;
+  position: fixed;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0px 5px 20px 3px rgba(black, .7);
+  box-sizing: border-box;
+  z-index: 1;
+
+  width: 300px;
+  max-width: 90vw;
+
+  h1 {
+    text-align: center;
+  }
+
+  input {
+    all: unset;
+    font-family: Giphurs;
+    color: colors.$surface_variant;
+    background: #272B25;
+    font-size: 12pt;
+    border: none;
+    padding: 0px calc(55px / 2);
+    margin: 5px;
+    margin-bottom: 3px;
+    border-radius: 28px;
+    box-sizing: border-box;
+
+    width: 100%;
+    height: 55px;
+
+    transition: 500ms;
+
+    &:hover,
+    &:focus {
+      color: colors.$on_surface;
+      background: colors.$surface_container_highest;
+    }
+  }
+}
+
+.entries-container {
+  background: colors.$surface_container;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+  margin-bottom: 20px;
+  border-radius: 30px;
+  padding: 10px;
+  overflow: visible;
+
+  transition: height 2s;
+
+  width: 70vw;
+  height: auto;
+  min-height: 150px;
+
+  animation: opacity 1s;
+
+  .loading {
+    display: block;
+    font-size: 200%;
+    font-weight: 900;
+    text-align: center;
+
+    animation: entries-in 100ms;
+  }
+
+  .entry {
+    display: flex;
+    align-items: center;
+
+    background: #272B25;
+    border-radius: 10px;
+    border: solid 1px colors.$outline;
+    padding: 20px;
+    box-sizing: border-box;
+    margin: 2px 0px;
+    position: relative;
+    cursor: pointer;
+
+    will-change: scale;
+    animation: entries-in 200ms;
+    transition: scale 100ms, background 500ms, border-radius 100ms;
+
+    width: 100%;
+    min-height: 120px;
+
+    * {
+      transition: color 1s;
+      opacity: inherit;
+      margin: 0px;
+    }
+
+    .title {
+      font-size: 150%;
+      font-weight: 600;
+    }
+
+    .content {
+      margin-top: 3px;
+      margin-bottom: 10px;
+      text-align: justify;
+    }
+
+    .footer {
+      color: colors.$on_surface_variant;
+      font-size: 85%;
+      font-weight: 300;
+      margin: 5px 3px;
+      position: absolute;
+      bottom: 0;
+
+      max-width: 90%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .vote {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      background: colors.$secondary_container;
+      border: none;
+
+      font-family: Giphurs, sans-serif;
+      font-size: 13pt;
+      font-weight: bold;
+      text-align: center;
+
+      padding: 0px;
+      margin: 0px;
+      border-radius: 28px;
+
+      position: relative;
+      overflow: hidden;
+
+      $size: 0px;
+      width: $size;
+      height: $size;
+      min-width: $size;
+      min-height: $size;
+      max-width: $size;
+      max-height: $size;
+
+      scale: 0;
+
+      will-change: scale, margin, padding;
+      transition: 350ms, scale 100ms, background 1s;
+
+      svg {
+        width: $size;
+        height: $size;
+        min-width: $size;
+        min-height: $size;
+        max-width: $size;
+        max-height: $size;
+
+        margin: auto;
+
+        .path {
+          fill: colors.$on_secondary_container;
+        }
+      }
+    }
+
+    &:first-child {
+      border-top-right-radius: 30px;
+      border-top-left-radius: 30px;
+    }
+
+    &:last-child {
+      border-bottom-right-radius: 30px;
+      border-bottom-left-radius: 30px;
+    }
+
+    &:hover {
+      background: #32362F;
+      scale: 1.02;
+      border-radius: 20px;
+
+      &:first-child {
+        border-top-right-radius: 40px;
+        border-top-left-radius: 40px;
+      }
+
+      &:last-child {
+        border-bottom-right-radius: 40px;
+        border-bottom-left-radius: 40px;
+      }
+    }
+
+    &.selected {
+      color: colors.$on_primary;
+      background: colors.$primary;
+      border-color: colors.$primary;
+      cursor: default;
+      transition: scale 100ms, background 100ms, border-radius 100ms;
+
+      .footer {
+        color: colors.$on_primary_fixed;
+      }
+
+      .vote {
+        scale: 1;
+        margin: auto;
+        margin-right: 0px;
+        margin-left: 30px;
+        padding: 20px;
+
+        $size: 100px;
+        min-width: $size;
+        min-height: $size;
+
+        will-change: scale, margin, padding;
+        transition: 350ms, scale 100ms, background 1s;
+
+        svg {
+          $size: calc($size/2);
+          min-width: $size;
+          min-height: $size;
+        }
+
+        &:hover,
+        &:active {
+          background: colors.$primary_container;
+
+          scale: 1.08;
+
+          transition: 350ms, scale 100ms, background 400ms;
+
+          svg .path {
+            fill: colors.$on_primary_container;
+          }
+        }
+
+        &:active {
+          scale: 0.98;
+        }
+      }
+
+      ::selection {
+        color: colors.$on_primary_container;
+        background: colors.$primary_container;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .entry {
+    flex-direction: column;
+
+    &.selected .vote {
+      margin: 0px !important;
+      margin-bottom: 10px !important;
+      min-width: 100% !important;
+    }
+  }
+}
+
+@keyframes popin {
+  to {
+    bottom: 10px;
+  }
+}
+
+@keyframes popout {
+  from {
+    bottom: 10px;
+  }
+
+  to {
+    bottom: -10vh;
+  }
+}
+
+@keyframes error-loop {
+  0% {
+    background-position: 100% 50%;
+  }
+
+  50% {
+    background-position: 50% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes squares-move {
+  0% {
+    background-position: $background-size;
+  }
+
+  100% {
+    background-position: calc(100% + (#{$background-size} - 100vw)) calc(100% + (#{$background-size} - 100vh));
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes entries-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
