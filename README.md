@@ -4,7 +4,7 @@
 
 Originally developed for a Science Fair at IFES – Campus Linhares, this project was created to replace the voting system based on Google Forms, which required users to provide their CPF.  
 
-The project was initially developed and hosted on **Codebergg** before being migrated to **GitHub**.
+The project was initially developed and hosted on **Codeberg** before being migrated to **GitHub**.
 
 **Inspired by Material Design 3.**
 
